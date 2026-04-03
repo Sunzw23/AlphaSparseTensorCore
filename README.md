@@ -4,11 +4,11 @@
 
 The folder `algorithms` contains optimal sparse matrix multiplication strategies for $4 \times 4 \times 4$ matrices with varying numbers of zero elements (from 1 to 7). 
 
-Specifically, for the matrix multiplication $AB=C$, we investigated all possible distributions of sparse elements (set to 0) within matrix $A$. This dataset covers every unique configuration where the number of zero elements $n$ ranges from 1 to 7. For each configuration, we provide the fast multiplication strategy that achieves the theoretical minimum number of multiplications.
+Specifically, for the matrix multiplication $AB=C$, we investigated all possible distributions of sparse elements (set to 0) within matrix $A$. This dataset covers every unique configuration where the number of zero elements $n$ ranges from 1 to 7. For each configuration, we provide an optimized multiplication strategy identified through this search, which significantly reduces the number of multiplications required.
 
-The `algorithms` directory is organized into seven subfolders (named `1/` through `7/`), where the folder name $n$ represents the total number of zero elements in matrix $A$. Within each subfolder, individual strategy files are named according to the indices of the zero elements. For example, a file named `a11_a22.exp` contains the optimal algorithm for a case where elements $a_{11}$ and $a_{22}$ are zero.
+The `algorithms` directory is organized into seven subfolders (named `1/` through `7/`), where the folder name $n$ represents the total number of zero elements in matrix $A$. Within each subfolder, individual strategy files are named according to the indices of the zero elements. For example, a file named `a11-a22.exp` contains the optimal algorithm for a case where elements $a_{11}$ and $a_{22}$ are zero.
 
-These strategies were derived by applying slight modifications to the algorithms provided by the [ternary_flip_graph](https://github.com/dronperminov/ternary_flip_graph) repository, adapted specifically for the discovery of sparse structures.
+These strategies were obtained by performing a search using the [ternary_flip_graph](https://github.com/dronperminov/ternary_flip_graph) repository, which was adapted specifically for the discovery of sparse structures.
 
 ### How to interpret the algorithms
 
@@ -86,7 +86,7 @@ The main API is implemented in:
 
 Use this when you already have a row or column permutation and want to apply it to a full strategy file.
 
-The example below swaps rows 1 and 2, and applies the same permutation to the corresponding columns.
+The example below swaps rows 1 and 2, and columns 1 and 2, for a $4 \times 4 \times 4$ matrix multiplication strategy where $a_{11}=0$. The resulting strategy corresponds to the case where the zero elements are located at position $a_{22}$.
 
 ```python
 from strategy_transformation import (
