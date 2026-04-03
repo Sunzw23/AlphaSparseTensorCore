@@ -72,3 +72,40 @@ $$
 \right)
 $$
 
+## Strategy Transformation
+
+The `strategy_transformation` package provides permutation-based transformations for sparse matrix multiplication expressions. It lets us derive equivalent strategies for different sparse layouts of matrix $A$ by reindexing rows and columns, instead of rebuilding an algorithm from scratch.
+
+### Usage
+
+The main API is implemented in:
+
+`strategy_transformation/permutations.py`
+
+#### Transformation by permutation
+
+Use this when you already have a row or column permutation and want to apply it to a full strategy file.
+
+The example below swaps rows 1 and 2, and applies the same permutation to the corresponding columns.
+
+```python
+from strategy_transformation import (
+	create_permutation_from_list,
+	apply_permutations_to_solution,
+)
+
+# Example: 4x4 matrix, swap row/col 1 and 2 by permutation list [2,1,3,4]
+row_perm = create_permutation_from_list([2, 1, 3, 4])
+col_perm = create_permutation_from_list([2, 1, 3, 4])
+
+with open("algorithms/1/a11.exp", "r", encoding="utf-8") as f:
+	input_text = f.read()
+
+output_text = apply_permutations_to_solution(
+	input_text,
+	row_perm=row_perm,
+	col_perm=col_perm,
+)
+
+print(output_text)
+```
